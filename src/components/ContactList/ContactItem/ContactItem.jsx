@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import styles from './ContactItem.module.css';
-import { useDispatch } from 'react-redux';
-import { deleteContact } from 'redux/contacts-slice';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteContact } from 'redux/thunk';
 
-const ContactItem = ({ id, name, number }) => {
+const ContactItem = ({ id, name, phone }) => {
+  const { loading } = useSelector(state => state.contacts);
   const dispatch = useDispatch();
   const deleteContactFromList = () => {
     dispatch(deleteContact(id));
@@ -11,10 +12,11 @@ const ContactItem = ({ id, name, number }) => {
   return (
     <li key={id} className={styles.item}>
       <p className={styles.itemText}>
-        {name}: {number}
+        {name}: {phone}
       </p>
       <button
         type="button"
+        disabled={loading}
         className={styles.itemButton}
         onClick={deleteContactFromList}
       >
