@@ -1,14 +1,24 @@
 import PropTypes from 'prop-types';
 import styles from './ContactList.module.css';
 import ContactItem from './ContactItem/ContactItem';
+import { useSelector } from 'react-redux';
+import { selectFilteredContacts } from 'redux/selectors';
 
-const ContactList = ({ contacts }) => {
+const ContactList = () => {
+  const contacts = useSelector(selectFilteredContacts);
+  console.log(contacts);
   return (
-    <ul className={styles.list}>
-      {contacts.map(({ id, name, number }) => (
-        <ContactItem key={id} name={name} number={number} id={id} />
-      ))}
-    </ul>
+    <>
+      {contacts.length === 0 ? (
+        <h6>You don't hame contact with this name</h6>
+      ) : (
+        <ul className={styles.list}>
+          {contacts.map(({ id, name, phone }) => (
+            <ContactItem key={id} name={name} phone={phone} id={id} />
+          ))}
+        </ul>
+      )}
+    </>
   );
 };
 
@@ -19,7 +29,7 @@ ContactList.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
+      phone: PropTypes.string.isRequired,
     })
   ),
 };
