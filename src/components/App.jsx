@@ -1,11 +1,17 @@
 import ContactForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
 import ContactList from './ContactList/ContactList';
-import { useSelector } from 'react-redux';
-import { getFilteredContacts } from '../redux/selectors';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectContacts } from '../redux/selectors';
+import { useEffect } from 'react';
+import { fetchContacts } from 'redux/thunk';
 
 function App() {
-  const filteredContacts = useSelector(getFilteredContacts);
+  const contacts = useSelector(selectContacts);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   return (
     <div
@@ -26,8 +32,8 @@ function App() {
         <div>
           <h3 style={{ marginBottom: '10px', fontSize: '30px' }}>Contacts</h3>
           <Filter />
-          {filteredContacts.length ? (
-            <ContactList contacts={filteredContacts} />
+          {contacts.length ? (
+            <ContactList />
           ) : (
             <p style={{ fontSize: 18, color: '#010101' }}>
               There are no contacts in your phonebook
