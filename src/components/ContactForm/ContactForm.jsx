@@ -1,9 +1,14 @@
 import { useState } from 'react';
-import styles from './ContactForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts } from 'redux/selectors';
 import { Notify } from 'notiflix';
 import { addContact } from 'redux/thunk';
+import {
+  StyledFomrLabel,
+  StyledForm,
+  StyledFormInput,
+  StyledSubmitButton,
+} from './ContactForm';
 
 const initialState = {
   name: '',
@@ -39,7 +44,6 @@ function ContactForm() {
       return;
     }
 
-    // console.log({ name, phone });
     dispatch(
       addContact({
         name,
@@ -57,40 +61,34 @@ function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleSubmitForm}>
-      <label className={styles.labelText}>
-        Name
-        <input
-          autoFocus
-          onChange={handleInputChange}
-          className={styles.input}
-          value={name}
-          type="text"
-          name="name"
-          placeholder="Enter contact name"
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Name may contain only letters, apostrophe, dash and spaces. For example Adriafn, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-          required
-        />
-      </label>
-      <label className={styles.labelText}>
-        Number
-        <input
-          onChange={handleInputChange}
-          className={styles.input}
-          type="tel"
-          name="phone"
-          value={phone}
-          placeholder="Enter contact number"
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          required
-        />
-      </label>
-      <button type="submit" className={styles.submitButton}>
-        Add Contact
-      </button>
-    </form>
+    <StyledForm onSubmit={handleSubmitForm}>
+      <StyledFomrLabel htmlFor="name">Name</StyledFomrLabel>
+      <StyledFormInput
+        autoFocus
+        onChange={handleInputChange}
+        value={name}
+        type="text"
+        id="name"
+        name="name"
+        placeholder="Enter contact name"
+        pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+        title="Name may contain only letters, apostrophe, dash and spaces. For example Adriafn, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+        required
+      />
+      <StyledFomrLabel htmlFor="phone">Phone</StyledFomrLabel>
+      <StyledFormInput
+        onChange={handleInputChange}
+        type="tel"
+        name="phone"
+        id="phone"
+        value={phone}
+        placeholder="Enter contact number"
+        pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+        title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+        required
+      />
+      <StyledSubmitButton type="submit">Add Contact</StyledSubmitButton>
+    </StyledForm>
   );
 }
 

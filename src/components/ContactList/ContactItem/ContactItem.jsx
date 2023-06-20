@@ -1,28 +1,31 @@
 import PropTypes from 'prop-types';
-import styles from './ContactItem.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact } from 'redux/thunk';
+import {
+  StyledButton,
+  StyledItem,
+  StyledText,
+  StyledTextWrapper,
+} from './StyledContactItem';
 
 const ContactItem = ({ id, name, phone }) => {
   const { loading } = useSelector(state => state.contacts);
   const dispatch = useDispatch();
-  const deleteContactFromList = () => {
-    dispatch(deleteContact(id));
-  };
+  const deleteContactFromList = () => dispatch(deleteContact(id));
   return (
-    <li key={id} className={styles.item}>
-      <p className={styles.itemText}>
-        {name}: {phone}
-      </p>
-      <button
+    <StyledItem key={id}>
+      <StyledTextWrapper>
+        <StyledText>{name}:</StyledText>
+        <StyledText>{phone}</StyledText>
+      </StyledTextWrapper>
+      <StyledButton
         type="button"
         disabled={loading}
-        className={styles.itemButton}
         onClick={deleteContactFromList}
       >
-        Delete
-      </button>
-    </li>
+        {loading ? '...Deleting' : 'Delete'}
+      </StyledButton>
+    </StyledItem>
   );
 };
 
