@@ -17,8 +17,7 @@ export const fetchContacts = createAsyncThunk(
       const data = await response.json();
       return data;
     } catch (error) {
-      console.log(error);
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -39,7 +38,6 @@ export const addContact = createAsyncThunk(
       }
       return await response.json();
     } catch (error) {
-      console.log(error.message);
       return rejectWithValue(error.message);
     }
   }

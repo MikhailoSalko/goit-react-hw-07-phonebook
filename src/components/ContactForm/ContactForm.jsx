@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts } from 'redux/selectors';
-import { Notify } from 'notiflix';
+import Notiflix, { Notify } from 'notiflix';
 import { addContact } from 'redux/thunk';
 import {
   StyledFomrLabel,
@@ -14,6 +14,8 @@ const initialState = {
   name: '',
   phone: '',
 };
+
+Notiflix.Notify.init({ position: 'top-center' });
 
 function ContactForm() {
   const [state, setState] = useState({
@@ -40,10 +42,9 @@ function ContactForm() {
 
   const addNewContact = ({ name, phone }) => {
     if (checkContactExist(name)) {
-      Notify.failure(`${name} is already in your contacts`);
-      return;
+      return Notify.failure(`${name} is already in your contacts`);
     }
-
+    Notify.success(`You add contact ${name}`);
     dispatch(
       addContact({
         name,

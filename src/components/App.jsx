@@ -11,6 +11,7 @@ import {
   StyledSectionContainer,
   StyledTextNoContacts,
 } from './StyledApp';
+import { Report } from 'notiflix';
 
 function App() {
   const {
@@ -29,10 +30,10 @@ function App() {
         <StyledHeader>Contacts</StyledHeader>
         <Filter />
       </StyledSectionContainer>
-      {error && <p>{error.message}</p>}
+      {error && Report.failure(error)}
       {loading && contacts.length === 0 ? (
         <Loader />
-      ) : contacts.length === 0 ? (
+      ) : contacts.length === 0 && !error ? (
         <StyledTextNoContacts>
           There are no contacts in your phonebook
         </StyledTextNoContacts>

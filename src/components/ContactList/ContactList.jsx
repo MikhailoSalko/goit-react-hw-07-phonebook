@@ -5,10 +5,11 @@ import { selectFilteredContacts } from 'redux/selectors';
 import { StyledList } from './StyledContactList';
 
 const ContactList = () => {
+  const { error } = useSelector(state => state.contacts);
   const contacts = useSelector(selectFilteredContacts);
   return (
     <>
-      {contacts.length === 0 ? (
+      {contacts.length === 0 && !error ? (
         <p>You don't hame contact with this name</p>
       ) : (
         <StyledList>

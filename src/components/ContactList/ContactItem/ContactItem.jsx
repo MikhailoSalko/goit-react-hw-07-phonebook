@@ -23,7 +23,7 @@ const ContactItem = ({ id, name, phone }) => {
         disabled={loading}
         onClick={deleteContactFromList}
       >
-        {loading ? '...Deleting' : 'Delete'}
+        Delete
       </StyledButton>
     </StyledItem>
   );
