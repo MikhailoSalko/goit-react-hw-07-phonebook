@@ -11,15 +11,13 @@ export const fetchContacts = createAsyncThunk(
           'Content-Type': 'application/json',
         },
       });
-      console.log(response);
       if (!response.ok) {
-        throw new Error();
+        throw new Error(response.statusText);
       }
       const data = await response.json();
       return data;
     } catch (error) {
       console.log(error);
-      console.log(rejectWithValue);
       return rejectWithValue(error);
     }
   }
@@ -29,7 +27,6 @@ export const addContact = createAsyncThunk(
   'contacts/addContact',
   async (data, { rejectWithValue }) => {
     try {
-      // console.log(data);
       const response = await fetch(BASE_URL, {
         method: 'POST',
         body: JSON.stringify(data),
@@ -37,8 +34,9 @@ export const addContact = createAsyncThunk(
           'Content-Type': 'application/json',
         },
       });
-      // console.log(response);
-      // console.log(data);
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
       return await response.json();
     } catch (error) {
       console.log(error.message);
@@ -51,11 +49,12 @@ export const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
   async (id, { rejectWithValue }) => {
     try {
-      // console.log(id);
       const response = await fetch(`${BASE_URL}/${id}`, {
         method: 'DELETE',
       });
-      // console.log(response);
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
       return await response.json();
     } catch (error) {
       return rejectWithValue(error.message);

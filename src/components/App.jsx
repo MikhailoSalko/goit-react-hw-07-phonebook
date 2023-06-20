@@ -21,8 +21,6 @@ function App() {
     dispatch(fetchContacts());
   }, [dispatch]);
 
-  console.log(error);
-
   return (
     <StyledPhoneBookContainer>
       <StyledSectionContainer>
@@ -31,15 +29,15 @@ function App() {
         <StyledHeader>Contacts</StyledHeader>
         <Filter />
       </StyledSectionContainer>
-      {error && <p>{error}</p>}
+      {error && <p>{error.message}</p>}
       {loading && contacts.length === 0 ? (
         <Loader />
-      ) : contacts.length > 0 ? (
-        <ContactList />
-      ) : (
+      ) : contacts.length === 0 ? (
         <StyledTextNoContacts>
           There are no contacts in your phonebook
         </StyledTextNoContacts>
+      ) : (
+        <ContactList />
       )}
     </StyledPhoneBookContainer>
   );
