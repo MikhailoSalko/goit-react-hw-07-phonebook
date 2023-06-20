@@ -15,7 +15,7 @@ const initialState = {
   phone: '',
 };
 
-Notiflix.Notify.init({ position: 'top-center' });
+Notiflix.Notify.init({ position: 'center-top' });
 
 function ContactForm() {
   const [state, setState] = useState({
