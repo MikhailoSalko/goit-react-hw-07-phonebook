@@ -11,9 +11,15 @@ export const fetchContacts = createAsyncThunk(
           'Content-Type': 'application/json',
         },
       });
+      console.log(response);
+      if (!response.ok) {
+        throw new Error();
+      }
       const data = await response.json();
       return data;
     } catch (error) {
+      console.log(error);
+      console.log(rejectWithValue);
       return rejectWithValue(error);
     }
   }
@@ -35,7 +41,8 @@ export const addContact = createAsyncThunk(
       // console.log(data);
       return await response.json();
     } catch (error) {
-      return rejectWithValue(error);
+      console.log(error.message);
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -51,7 +58,7 @@ export const deleteContact = createAsyncThunk(
       // console.log(response);
       return await response.json();
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue(error.message);
     }
   }
 );

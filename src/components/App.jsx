@@ -21,6 +21,8 @@ function App() {
     dispatch(fetchContacts());
   }, [dispatch]);
 
+  console.log(error);
+
   return (
     <StyledPhoneBookContainer>
       <StyledSectionContainer>
